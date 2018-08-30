@@ -7,9 +7,10 @@ class UserController
     {
         $user = new User;
         $name =  $user->getName();
-
+       
         view("users.hello",[
             "name"=>$name
         ]);
     }
+
 }

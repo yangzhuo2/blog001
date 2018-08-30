@@ -20,7 +20,6 @@ $fullcontroller  = "controllers\\".$controller;
 $usercontroller = new $fullcontroller;
 $usercontroller->$action();
 
-
 function view($dir,$data=[]){
     extract($data);
     $dir =str_replace(".","/",$dir);
