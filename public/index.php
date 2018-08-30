@@ -1,6 +1,5 @@
 <?php
 define("ROOT",dirname(__FILE__).'/../');
-var_dump(ROOT);
 function autoload($class){
     // var_dump($class);
     $path = str_replace('\\',"/",ROOT.$class.".php");
@@ -9,7 +8,7 @@ function autoload($class){
 spl_autoload_register('autoload');
 
 if(isset($_SERVER["PATH_INFO"])){
-    $arr = explode("/",$_SERVER['PATH_INFO']);
+    $arr = explode("/",$_SERVER['PATH_INFO']);      
     $controller = ucfirst($arr[1]."Controller");
     $action = $arr[2];   
 }
@@ -18,7 +17,6 @@ else {
     $action = "index";
 }
 $fullcontroller  = "controllers\\".$controller;
-
 $usercontroller = new $fullcontroller;
 $usercontroller->$action();
 

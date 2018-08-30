@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <form >
+        关键词
+        <input type="text" name="keywords" value="<?=@$_GET['keywords'] ?>">
+        开始时间
+        <input type="text" name="start_time" value="<?=@$_GET['start_time'] ?>">
+        结束时间
+        <input type="text" name="end_time" value="<?=@$_GET['end_time'] ?>">
+        是否显示
+        全部:<input type="radio"    name="is_show" value="" <?php if((@$_GET['is_show'])===""){ echo "checked"; }?>   >
+        显示:<input type="radio"  name="is_show" value="1"  <?php if((@$_GET['is_show'])==="1"){ echo "checked"; }?> >
+        不显示:<input type="radio"  name="is_show" value="0" <?php if((@$_GET['is_show'])==="0"){ echo "checked"; }?>  >
+        <input type="submit" value="搜索">
+    </form>
+    <br>
+    <br>
+    <table border="1"   >
+            <tr>
+                <th>编号</th>
+                <th width="50%">标题</th>
+                <th>发布时间</th>
+                <th>最近修改</th>
+                <th>阅读量</th>
+                <th>是否显示</th>
+
+            </tr>
+            <?php  foreach($blog as $b):     ?>
+            <tr>
+                <td><?=$b['id']?></td>
+                <td><?=$b['title']?></td>
+                <td><?=$b['created_at']?></td>
+                <td><?=$b['update_at']?></td>
+                <td><?=$b['display']?></td>
+                <td><?=$b['is_show']?></td>
+            </tr>
+            <?php endforeach;?>
+    </table>
+    <br><br>
+    <?=$str?>
+</body>
+</html>
