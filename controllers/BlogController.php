@@ -91,4 +91,25 @@ class BlogController
 
 
     }
+    public function staticHtml(){
+        $pdo = new PDO("mysql:host=127.0.0.1;dbname=blog","root","7545");
+        $pdo->exec("SET NAMES utf8");
+        $pdos  = $pdo->query("SELECT * FROM blogs ");
+        $arr = $pdos->fetchAll(PDO::FETCH_ASSOC);
+        // var_dump($arr);
+        ob_start();
+        foreach($arr as $v){
+
+            view("blogs.content",[
+                'blogs'=>$v,
+            ]);
+            $str = ob_get_contents();
+            file_put_contents(ROOT.'/public/contents/'.$v['id'].".html",$str);
+            ob_clean();
+
+        }
+
+
+
+    }
 }
