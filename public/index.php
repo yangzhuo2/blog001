@@ -1,5 +1,6 @@
 <?php
 define("ROOT",dirname(__FILE__).'/../');
+require(ROOT."vendor/autoload.php");//引入composer 自动加载文件
 function autoload($class){
     // var_dump($class);
     $path = str_replace('\\',"/",ROOT.$class.".php");
