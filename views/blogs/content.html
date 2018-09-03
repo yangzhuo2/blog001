@@ -8,8 +8,25 @@
 </head>
 <body>
     <h1><?=$blogs['title']?></h1>
+    <p id="display">
+        阅读量： 
+    </p>
     <div>
         <?=$blogs['content']?>
     </div>
 </body>
 </html>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    var id = "<?=$blogs['id']?>";
+    var url = "/blog/update_display?id=" +id;
+    $.ajax({
+        type:"GET",
+        url:url,
+        success:function(data){
+            // document.write(data);
+            $("#display").html(data);
+        }
+
+    })
+</script>
