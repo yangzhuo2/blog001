@@ -7,6 +7,7 @@
     <title>Document</title>
 </head>
 <body>
+    <div id="mun"></div>
     <h1><?=$blogs['title']?></h1>
     <p id="display">
         阅读量： 
@@ -14,18 +15,29 @@
     <div>
         <?=$blogs['content']?>
     </div>
+    <?php view('common.foot') ?>
+
 </body>
 </html>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script>
     var id = "<?=$blogs['id']?>";
+    var html = "";
     var url = "/blog/update_display?id=" +id;
     $.ajax({
         type:"GET",
         url:url,
+        dataType:"json",
         success:function(data){
             // document.write(data);
-            $("#display").html(data);
+            $("#display").html(data.num);
+            if(data.email == ""){
+                html = "<a href='/blog/index'>首页</a>   <a href='/user/login'>登录</a>   <a href='/user/regist'>注册</a>";
+
+            }else {
+                html ="<a href='/blog/index'>首页</a>    "+data.email+"   <a href='/user/logout'>退出</a>";
+            }
+            $("#mun").html(html);
         }
 
     })

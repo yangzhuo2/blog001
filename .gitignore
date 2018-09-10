@@ -1,3 +1,4 @@
 /public/contents/
 /vendor/
 /composer.lock
+/config.php

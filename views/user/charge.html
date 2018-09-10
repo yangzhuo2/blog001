@@ -7,11 +7,13 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="/user/zhuce" method="post">
+    <?php view('common.nav') ?>
 
-        邮箱：<input type="text" name="email"><br>
-        密码：<input type="password" name="pwd"><br>
-        <input type="submit" value="提交">
+    <form action="/user/docharge" method="post">
+        充值金额：<input type="text" name="money"><br>
+        <?php csrf_filed()?>
+        <input type="submit" value="充值">
     </form>
+    <?php view('common.foot') ?>
 </body>
 </html>

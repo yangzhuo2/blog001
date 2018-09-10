@@ -9,15 +9,13 @@
 <body>
         <?php view('common.nav') ?>
 
-    <h1>首页</h1>
-    <ul>
-            <?php  foreach($blogs as $b):     ?>
-            <li>
-                <?=$b['title']?>
-            </li>
-            <?php endforeach;?>
-    </ul>
+    <form action="/user/zhuce" method="post">
+        邮箱：<input type="text" name="email"><br>
+        密码：<input type="password" name="pwd"><br>
+        <?php csrf_filed()?>
+        <input type="submit" value="提交">
+    </form>
     <?php view('common.foot') ?>
-    
+
 </body>
 </html>

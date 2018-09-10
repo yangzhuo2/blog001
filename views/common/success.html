@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script>
+    var time = "<?=$time?> ";
+    var get = document.getElementById("cc");
+    var s = setInterval(function(){
+        time --;
+        if(time==0){
+            clearInterval(s);
+            location.href = "<?=$url?>";
+        }else {
+            get.innerHTML = time;
+        }
+        
+    },1000);
+
+</script>
+<body>
+    <h1><?=$message?>      </h1>
+    <a href="<?=$url?>">点击舔砖</a>
+    <div id="cc">
+        <?=$time?> 后自动跳转
+    </div>
+</body>
+</html>

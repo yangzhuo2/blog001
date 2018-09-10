@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+        <table border="1">
+            <tr>
+                <td>编号</td>
+                <td>订单编号</td>
+                <td>金额</td>
+                <td>订单生成时间</td>
+                <td>支付时间</td>
+                <td>订单状态</td>
+                <td>操作</td>
+            </tr>
+            <?php foreach($orders as $v):?>
+
+            <tr>
+                <td><?=$v['id']?></td>
+                <td><?=$v['sn']?></td>
+                <td><?=$v['money']?></td>
+                <td><?=$v['created_at']?></td>
+                <td><?=$v['pay_time']?></td>
+                <td><?=$v['status']==0?'未支付':($v['status']==1?'已支付':'已退款');   ?></td>
+                <td><?php if($v['status']==0){ echo "<a href=''>去支付</a>";  }; ?></td>
+            </tr>
+
+            <?php endforeach;?>
+        </table>
+</body>
+</html>
