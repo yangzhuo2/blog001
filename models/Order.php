@@ -48,5 +48,15 @@ class Order extends Base
 
         return array($arr,$str);
     }
+    public function  findBySn($sn){
+        $pdos = self::$pdo->prepare("SELECT * FROM orders WHERE sn = ?");
+        $pdos->execute([$sn]);
+        return $pdos->fetch(PDO::FETCH_ASSOC);
+    }
+    public function setPidBySn($sn){
+        $pdos = self::$pdo->prepare("UPDATE orders SET status=1,pay_time=now() WHERE sn=?");
+        $num = $pdos->execute([$sn]);
+        return $num;
+    }
 
 }

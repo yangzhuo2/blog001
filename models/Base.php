@@ -12,4 +12,14 @@ class Base {
             self::$pdo->exec("SET NAMES {$mysql['charset']}");
         }
     }
+    public function startTrans(){
+        self::$pdo->exec('start transaction');
+    
+    }
+    public function commit(){
+        self::$pdo->exec("commit");
+    }
+    public function rollback(){
+        self::$pdo->exec("rollback");
+    }
 }

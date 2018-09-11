@@ -1,3 +1,4 @@
+<script src="/simditor-2.3.6/scripts/jquery.min.js"></script>
 <?php if(isset($_SESSION['_MESS_'])): ?>
 <div id="_mess_" style="border: 1px solid #25b952;background-color:#b9ecbd;padding:5px;">
     <?=$_SESSION['_MESS_']?>
@@ -20,7 +21,8 @@ var si = setInterval(function(){
 <h2>智聊系统</h2>
 <a href="/blog/index">首页</a>
 <?php if(isset($_SESSION['id'])): ?>
-    <?=$_SESSION['email']?>
+    <?=$_SESSION['email']?>(<span id="up_span"><?=$_SESSION['money'] ?>    元   </span>
+   <input type="button" value="更新" id="up">     )
     <a href="/user/logout">退出</a>
     <a href="/user/charge">充值</a>
 <?php else: ?>
@@ -28,3 +30,8 @@ var si = setInterval(function(){
     <a href="/user/regist">注册</a>
 <?php endif; ?>
 <hr>
+<script>
+    $("#up").click(function(){
+        $("#up_span").load("/user/money");
+    });
+</script> 

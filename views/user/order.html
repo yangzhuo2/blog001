@@ -26,7 +26,14 @@
                 <td><?=$v['created_at']?></td>
                 <td><?=$v['pay_time']?></td>
                 <td><?=$v['status']==0?'未支付':($v['status']==1?'已支付':'已退款');   ?></td>
-                <td><?php if($v['status']==0){ echo "<a href=''>去支付</a>";  }; ?></td>
+                <td><?php if($v['status']==0):; ?>
+                    <form action="/alipay/pay" method="post"> <?=csrf_filed()?> 
+                        <input type="hidden" name="sn" value="<?=$v['sn']?>">
+                        <input type="submit" value="支付">
+                </form>
+                    
+                    <?php endif;?>
+                </td>
             </tr>
 
             <?php endforeach;?>

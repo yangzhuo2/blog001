@@ -92,4 +92,12 @@ class UserController
            'str'=>$data[1]
        ]);
     }
+    public function money(){
+        $id = $_SESSION['id'];
+        $user = new User;
+        $money = $user->getMoney($id);
+        $_SESSION['money'] = $money;
+        echo $money;
+        return $money;
+    }
 }

@@ -18,10 +18,22 @@ class User extends Base
         if($data){
             $_SESSION['id'] = $data['id'];
             $_SESSION['email'] = $data['email'];
+            $_SESSION['money'] = $data['money'];
             return true;
         }else{
             return false;
         }
     }   
-
+    public function addMoney($money,$userid){
+        $pdos = self::$pdo->prepare("UPDATE user SET money = money+? WHERE id = ?");
+        return $pdos->execute([
+            $money,
+            $userid
+        ]);
+    }
+    public function getMoney($id){
+        $pdos = self::$pdo->prepare("SELECT money FROM user WHERE id = ?");
+        $pdos->execute([$id]);
+        return $pdos->fetch(PDO::FETCH_COLUMN);
+    }
 }
