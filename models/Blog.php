@@ -149,4 +149,9 @@ class Blog extends Base
     public function delHtml($id){
         @unlink(ROOT.'public/contents/'.$blog['id'].".html",$str);
     }
+    public function getNew(){
+        $pdos = self::$pdo->prepare("SELECT * FROM blogs ORDER BY created_at LIMIT 20");
+        $pdos->execute([]);
+       return  $pdos->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

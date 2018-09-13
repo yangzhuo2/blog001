@@ -1,7 +1,7 @@
 <?php
 ini_set("session.save_handler","redis"); //使用reids 保存session
 ini_set("session.save_path","tcp://127.0.0.1:6379?database=3"); //设置redis服务器的地址、端口、使用的数据库
-ini_set('session.gc_maxlifetime',600);//设置session保存时间
+ini_set('session.gc_maxlifetime',6000);//设置session保存时间
 session_start();
 // if($_SERVER['REQUEST_METHOD']=='POST'){
 

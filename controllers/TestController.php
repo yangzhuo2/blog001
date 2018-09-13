@@ -58,4 +58,64 @@ class TestController{
        }
        return $b;
    }
+   public function uploaderImages(){
+        $images =  $_FILES['images'];
+        $index = strrpos($images['name'],'.');
+        $ext = substr($images['name'],$index);
+        $root = ROOT.'uploads/face';
+        $date = date('Ymd');
+        if(!is_dir($root."/".$date)){
+            mkdir($root."/".$date,777,true);
+        }
+        $name = md5(time()+$date) .$ext;
+        // var_dump($name);
+        move_uploaded_file($images['tmp_name'],$root.'/'.$date."/".$name);
+   }
+   public function uploadAll(){
+      $images =  $_FILES['images'];
+      $root = ROOT.'uploads/face';
+      $date = date('Ymd');
+      if(!is_dir($root."/".$date)){
+          mkdir($root."/".$date,777,true);
+      }
+      foreach($images['name'] as $k=>$v){
+        $index = strrpos($images['name'][$k],'.');
+        $ext = substr($images['name'][$k],$index);
+        $name = md5(time()+$date+rand(1,9999)).$ext;
+
+
+        move_uploaded_file($images['tmp_name'][$k],$root.'/'.$date."/".$name);
+
+      }
+   }
+   public function uploadbig(){
+       $img  = $_FILES['img'];
+       $count = $_POST['count'];
+       $imgName = $_POST['img_name'];
+       $imgSize = $_POST['size'];
+       $jige  = $_POST['i'];
+       $ext = $_POST['ext'];
+
+       if(!is_dir(ROOT."tmp/".$imgName."/")){
+           mkdir(ROOT."tmp/".$imgName."/",777,true);
+       }
+       move_uploaded_file($img['tmp_name'],ROOT."tmp/".$imgName."/".$jige);
+    //    var_dump($imgName);
+       $redis = \libs\Redis::getinstance();
+       $pianCount  = $redis->incr($imgName);
+       if($pianCount == $count){
+
+        $f = fopen(ROOT.'uploads/big/'.$imgName.$ext,'a');
+        for($i=0;$i<$count;$i++){
+            fwrite($f,file_get_contents(ROOT."tmp/".$imgName."/".$i));
+            unlink(ROOT."tmp/".$imgName."/".$i);
+        }
+        fclose($f);
+        $redis->del($imgName);
+       }
+   }
+
+   public function up(){
+       view('user.upload');
+   }
 }

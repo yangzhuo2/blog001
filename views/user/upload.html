@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <form action="/test/uploadbig" enctype="multipart/form-data" method="post">
+        上传文件
+        <input type="file" id="img" name="images" ><br>
+
+
+            <?php csrf_filed()?>
+          
+    </form>
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script>
+    $(function(){
+        var img = document.getElementById('img');
+        img.onchange = function(){
+            var  img1 = this.files[0];
+            var size = img1.size;
+            var pian = 5120;
+            var count = Math.ceil(size/pian);
+            var name = "img_"+Math.random(1,9999999);
+            var index = this.files[0]['name'].lastIndexOf('.');
+            var ext  = this.files[0]['name'].substring(index);
+            for(var i=0;i<count;i++){
+
+                
+                var img0 = img1.slice(i*pian,i*pian+pian);
+
+                var f = new FormData;
+                f.append('img',img0)
+                f.append('count',count)
+                f.append('size',pian)
+                f.append('i',i)
+                f.append('img_name',name)
+                f.append('ext',ext)
+
+                $.ajax({
+                    type:"POST",
+                    url:"/test/uploadbig",
+                    data:f,
+                    contentType: false,
+                    processData: false,
+                    success:function(data){
+
+                    }
+                })              
+
+            }
+        }
+    });
+</script>

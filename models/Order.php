@@ -15,7 +15,7 @@ class Order extends Base
     }
     public function search(){
         $where = isset($_SESSION['id'])?" user_id = ".$_SESSION['id'] : 1 ;
-
+        // echo $where;
         function getUrlParms($canshu = []){
             foreach($canshu as $v){
                 unset($_GET[$v]);

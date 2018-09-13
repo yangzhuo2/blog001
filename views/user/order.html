@@ -6,7 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
-<body>
+<body>  
+    <?php view('common.nav')?>
         <table border="1">
             <tr>
                 <td>编号</td>
@@ -29,8 +30,12 @@
                 <td><?php if($v['status']==0):; ?>
                     <form action="/alipay/pay" method="post"> <?=csrf_filed()?> 
                         <input type="hidden" name="sn" value="<?=$v['sn']?>">
-                        <input type="submit" value="支付">
+                        <input type="submit" value="支付宝支付">
                 </form>
+                <form action="/wxpay/pay" method="post"> <?=csrf_filed()?> 
+                    <input type="hidden" name="sn" value="<?=$v['sn']?>">
+                    <input type="submit" value="微信支付">
+            </form>
                     
                     <?php endif;?>
                 </td>
@@ -38,5 +43,7 @@
 
             <?php endforeach;?>
         </table>
+    <?php view('common.foot')?>
+
 </body>
 </html>
