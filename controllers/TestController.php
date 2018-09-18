@@ -19,18 +19,18 @@ class TestController{
         }
     }
     public function user(){
-        $pdo = new PDO("mysql:host=localhost;dbname=blog","root","7545");
+        $pdo = new PDO("mysql:host=localhost;dbname=blog","root","123456");
         $pdo->exec("set NAMES utf8");
-        $pdo->exec('TRUNCATE user');
+        $pdo->exec('TRUNCATE users');
         for($i=0;$i<20;$i++){
             $email = rand(10000,99999999)."@163.com";
             $pwd= md5('123456');
-            $pdo->exec("INSERT INTO user (email,password) VALUES('$email','$pwd')");
+            $pdo->exec("INSERT INTO users(email,password) VALUES('$email','$pwd')");
             
         }
     }
     public function blog(){
-        $pdo = new PDO("mysql:host=localhost;dbname=blog","root","7545");
+        $pdo = new PDO("mysql:host=localhost;dbname=blog","root","123456");
         $pdo->exec("set NAMES utf8");
         $pdo->exec('TRUNCATE blogs');
         for($i=0;$i<200;$i++){
@@ -43,7 +43,6 @@ class TestController{
             $date = date("Y-m-d H:i:s",$date);
 
             $a =  $pdo->exec("INSERT INTO blogs (id,title,content,created_at,display,is_show,user_id) VALUES(null,'$title','$content','$date',$display,$is_show,$user_id)");
-            var_dump($a);
         }
 
     }

@@ -3,6 +3,7 @@ namespace controllers;
 use models\User;
 use models\Order;
 use libs\Redis;
+use Intervention\Image\ImageManagerStatic as Images;
 class UserController
 {
    public function regist(){
@@ -73,7 +74,7 @@ class UserController
    public function logout()
     {
         $_SESSION = [];
-        die('退出成功！');
+        message('退出成功！','/blog/index',2);
     }
    public function charge(){
        view('user.charge');
@@ -92,12 +93,33 @@ class UserController
            'str'=>$data[1]
        ]);
     }
-    public function money(){
+   public function money(){
         $id = $_SESSION['id'];
         $user = new User;
         $money = $user->getMoney($id);
         $_SESSION['money'] = $money;
         echo $money;
         return $money;
+    }
+    public function face(){
+
+        view('user.face');
+    }
+    public function setface(){
+        
+        $upload = \libs\Uploader::make();
+        $sb = $upload->uploader('face','face');
+        $path = "/uploads/".$sb;
+
+        $images = Images::make(ROOT."public".$path);
+        $images->crop((int)$_POST['x'],(int)$_POST['y'],(int)$_POST['w'],(int)$_POST['h']);
+        $images->save(ROOT."public".$path);
+
+        $user  = new User;
+        $user->uploadFace($path);
+        @unlink(ROOT.'public'.$_SESSION['avatar']);
+        $_SESSION['avatar'] = $path;
+        message('设置成功','/blog/index',2);
+
     }
 }

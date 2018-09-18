@@ -162,12 +162,10 @@ class Blog extends Base
         ]);
         $data  = $pdos->fetch(PDO::FETCH_COLUMN);
         if($data==1){
-        
 
             return FALSE;
         }
        
-
         $pdos = self::$pdo->prepare("INSERT INTO blog_zans(user_id,blog_id) VALUES(?,?)");
         $reg = $pdos->execute([
              $_SESSION['id'] ,

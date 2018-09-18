@@ -99,9 +99,9 @@ class BlogController
        $id = $_GET['id'];
        $blog = new Blog;
        $b = $blog ->find($id);
-       if($b['user_id'] != $_SESSION['id'] ){
-           die("无权访问");
-       }
+    //    if($b['user_id'] != $_SESSION['id'] ){
+    //        die("无权访问");
+    //    }
        view('blogs.content',[
            "blogs"=>$b
        ]);

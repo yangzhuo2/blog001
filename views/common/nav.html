@@ -21,10 +21,12 @@ var si = setInterval(function(){
 <h2>智聊系统</h2>
 <a href="/blog/index">首页</a>
 <?php if(isset($_SESSION['id'])): ?>
+    <img  class ="face" src="<?=$_SESSION['avatar']==''?'/images/face.jpg':$_SESSION['avatar']; ?>" alt="">
     <?=$_SESSION['email']?>(<span id="up_span"><?=$_SESSION['money'] ?>    元   </span>
    <input type="button" value="更新" id="up">     )
     <a href="/user/logout">退出</a>
     <a href="/user/charge">充值</a>
+    <a href="/user/face">设置头像</a>
 <?php else: ?>
     <a href="/user/login">登录</a>
     <a href="/user/regist">注册</a>
@@ -35,3 +37,13 @@ var si = setInterval(function(){
         $("#up_span").load("/user/money");
     });
 </script> 
+<style>
+    .face {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        vertical-align: bottom;
+        padding: 2px;
+        border:1px solid skyblue;
+    }
+</style>

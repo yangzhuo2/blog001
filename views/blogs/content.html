@@ -6,8 +6,28 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
-        #zan {
 
+        .agree-list {
+            border: 1px solid skyblue;
+            padding: 0;
+            text-align: center;
+        }
+        .avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 1px solid skyblue;
+            padding: 5px;
+            margin-left: 20px;
+        }
+        .agree-list h3 {
+            padding: 0;
+            margin-top: 0;
+            background-color: #EEE;
+            padding: 5px;
+        }
+        #avatar-list {
+            padding-bottom: 10px;
         }
     </style>
 </head>
@@ -21,7 +41,14 @@
     <div>
         <?=$blogs['content']?>
     </div>
-    <img src="/images/zan.jpg" id="zan" alt="">
+
+    <img src="/images/zan.jpg"  class="face" id="zan" alt="">
+    <div class="agree-list">
+        <h3>点赞列表</h3>
+        <div id="avatar-list">
+
+        </div>
+    </div>
     <?php view('common.foot') ?>
 </body>
 </html>
@@ -30,6 +57,7 @@
     var id = "<?=$blogs['id']?>";
     var html = "";
     var url = "/blog/update_display?id=" +id;
+    var  html2 = "";
     $.ajax({
         type:"GET",
         url:url,
@@ -63,5 +91,23 @@
                 }
             }
         })
+    })
+    $.ajax({
+        type:"GET",
+        url:"/blog/user_list?id="+id,
+        dataType:"json",
+        success:function(data){
+            console.log(data);
+            if(data.status_code==200){
+                for(var i= 0;i<data.data.length;i++){   
+                    if(data.data[i].aratar==''){
+                        data.data[i].aratar = "/images/face.pg";
+                    }
+                    html2 += "<img class='face' src='"+data.data[i].avatar+"' title ='"+data.data[i].email+"' >";
+
+                }
+                $("#avatar-list").html(html2);
+            }
+        }
     })
 </script>
