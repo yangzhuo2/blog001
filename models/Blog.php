@@ -154,4 +154,36 @@ class Blog extends Base
         $pdos->execute([]);
        return  $pdos->fetchAll(PDO::FETCH_ASSOC);
     }
+    public function click_zan($blog_id){
+        $pdos = self::$pdo->prepare("SELECT count(*) FROM blog_zans WHERE user_id = ? and blog_id = ?");
+        $pdos->execute([
+            $_SESSION['id'],
+            $blog_id
+        ]);
+        $data  = $pdos->fetch(PDO::FETCH_COLUMN);
+        if($data==1){
+        
+
+            return FALSE;
+        }
+       
+
+        $pdos = self::$pdo->prepare("INSERT INTO blog_zans(user_id,blog_id) VALUES(?,?)");
+        $reg = $pdos->execute([
+             $_SESSION['id'] ,
+            $blog_id
+        ]);
+        // var_dump($reg,$blog_id,$_SESSION['id']);exit;
+        if($reg){
+            $pdos = self::$pdo->prepare("UPDATE blog SET zan = zan +1 WHERE id = ?");
+            $pdos->execute([$blog_id]);
+        }
+        return $reg;
+    }
+    public function zan_list($blog_id){
+        $sql = "SELECT u.id,u.email,u.avatar FROM users u LEFT JOIN blog_zans z on u.id = z.user_id WHERE z.blog_id = ?";
+        $pdos  = self::$pdo->prepare($sql);
+        $pdos->execute([$blog_id]);
+        return $pdos->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

@@ -106,4 +106,41 @@ class BlogController
            "blogs"=>$b
        ]);
    }
+   public function zan_click(){
+      $blog_id =  $_GET['id'];
+      if(!isset( $_SESSION['id'] )){
+          echo json_encode([
+              "status_code"=>"403",
+              "message"=>"先登录"
+          ]);
+          exit;
+      }
+      $blog = new Blog;
+      $reg = $blog->click_zan($blog_id);
+      if($reg){
+          echo json_encode([
+              "status_code"=>"200",
+          ]);
+            exit;
+      }else {
+          echo json_encode([
+              "status_code"=>"403",
+              "message"=>"已经点过赞了"
+          ]);
+          exit;
+      }
+
+   }
+   public function user_list(){
+       $id = $_GET['id'];
+       $blog = new Blog;
+       $users = $blog->zan_list($id);
+    
+    
+        echo json_encode([
+            "status_code"=>"200",
+            "data"=>$users
+        ]);
+      
+    }
 }

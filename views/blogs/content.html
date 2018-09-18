@@ -5,8 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <style>
+        #zan {
+
+        }
+    </style>
 </head>
 <body>
+        <?php view('common.nav') ?>
     <div id="mun"></div>
     <h1><?=$blogs['title']?></h1>
     <p id="display">
@@ -15,8 +21,8 @@
     <div>
         <?=$blogs['content']?>
     </div>
+    <img src="/images/zan.jpg" id="zan" alt="">
     <?php view('common.foot') ?>
-
 </body>
 </html>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
@@ -39,6 +45,23 @@
             }
             $("#mun").html(html);
         }
+        
+    })
+    $("#zan").click(function(){
+        $.ajax({
+            type:"POST",
+            url:"/blog/zan_click?id="+id,
+            dataType:"json",
 
+            success:function(data){
+                if(data.status_code==200){
+                    alert('点赞成功');
+                }
+                else {
+                    alert(data.message);
+                        
+                }
+            }
+        })
     })
 </script>
